@@ -31,12 +31,23 @@ void main(List<String> args) {
     print('embedding-flutter-view args: $option: ${arguments[option]}');
   }
 
-  TestApp app = TestApp(
-    ChildView.gfx(_launchGfxChildView()),
-    showOverlay: arguments['showOverlay'],
-    hitTestable: arguments['hitTestable'],
-    focusable: arguments['focusable'],
-  );
+  TestApp app;
+  final useFlatland = arguments['useFlatland'];
+  if (useFlatland) {
+    app = TestApp(
+      ChildView(_launchFlatlandChildView()),
+      showOverlay: arguments['showOverlay'],
+      hitTestable: arguments['hitTestable'],
+      focusable: arguments['focusable'],
+    );
+  } else {
+    app = TestApp(
+      ChildView.gfx(_launchGfxChildView()),
+      showOverlay: arguments['showOverlay'],
+      hitTestable: arguments['hitTestable'],
+      focusable: arguments['focusable'],
+    );
+  }
 
   app.run();
 }
